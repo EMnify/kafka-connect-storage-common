@@ -105,7 +105,8 @@ public class PartitionerConfig extends AbstractConfig implements ComposableConfi
 
   public static final String SCHEMA_MAPPING_CONFIG = "schema.name.mapping";
   public static final String SCHEMA_MAPPING_DOC =
-          "Mapping of schema name to value for $SCHEMA_NAME in path. Name and mapped name is delimited by \":\". Multiple entries can be specified delimited by comma (',').";
+          "Mapping of schema name to value for $SCHEMA_NAME in path. Name and mapped name is "
+          + "delimited by \":\". Multiple entries can be specified delimited by comma (',').";
   public static final String SCHEMA_MAPPING_DEFAULT = "";
   public static final String SCHEMA_MAPPING_DISPLAY = "Schema name mapping";
 
