@@ -103,6 +103,13 @@ public class PartitionerConfig extends AbstractConfig implements ComposableConfi
   public static final String TIMESTAMP_FIELD_NAME_DEFAULT = "timestamp";
   public static final String TIMESTAMP_FIELD_NAME_DISPLAY = "Record Field for Timestamp Extractor";
 
+  public static final String SCHEMA_MAPPING_CONFIG = "schema.name.mapping";
+  public static final String SCHEMA_MAPPING_DOC =
+          "Mapping of schema name to value for $SCHEMA_NAME in path. Name and mapped name is delimited by \":\". Multiple entries can be specified delimited by comma (',').";
+  public static final String SCHEMA_MAPPING_DEFAULT = "";
+  public static final String SCHEMA_MAPPING_DISPLAY = "Schema name mapping";
+
+
   /**
    * Create a new configuration definition.
    *
@@ -211,6 +218,16 @@ public class PartitionerConfig extends AbstractConfig implements ComposableConfi
           ++orderInGroup,
           Width.LONG,
           TIMESTAMP_FIELD_NAME_DISPLAY);
+
+      configDef.define(SCHEMA_MAPPING_CONFIG,
+              Type.STRING,
+              SCHEMA_MAPPING_DEFAULT,
+              Importance.LOW,
+              SCHEMA_MAPPING_DOC,
+              group,
+              ++orderInGroup,
+              Width.LONG,
+              SCHEMA_MAPPING_DISPLAY);
     }
 
     return configDef;
