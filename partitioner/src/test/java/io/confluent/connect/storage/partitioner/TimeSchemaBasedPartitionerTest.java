@@ -2,6 +2,7 @@ package io.confluent.connect.storage.partitioner;
 
 import io.confluent.connect.storage.StorageSinkTestBase;
 import io.confluent.connect.storage.common.StorageCommonConfig;
+import org.apache.commons.compress.utils.Lists;
 import org.apache.kafka.common.record.TimestampType;
 import org.apache.kafka.common.utils.Time;
 import org.apache.kafka.connect.data.Schema;
@@ -15,9 +16,7 @@ import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
 import org.junit.Test;
 
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertEquals;
@@ -64,7 +63,9 @@ public class TimeSchemaBasedPartitionerTest extends StorageSinkTestBase {
     if (timeFieldName != null) {
       config.put(PartitionerConfig.TIMESTAMP_FIELD_NAME_CONFIG, timeFieldName);
     }
-    config.put(PartitionerConfig.SCHEMA_MAPPING_CONFIG, "my.random.Schema:just_schema");
+    List<String> mappings = new ArrayList<>();
+    mappings.add("my.random.Schema:just_schema");
+    config.put(PartitionerConfig.SCHEMA_MAPPING_CONFIG, mappings);
     return config;
   }
 

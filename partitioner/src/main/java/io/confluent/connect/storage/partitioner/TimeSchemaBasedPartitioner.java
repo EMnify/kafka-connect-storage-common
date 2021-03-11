@@ -36,8 +36,8 @@ public class TimeSchemaBasedPartitioner<T> extends TimeBasedPartitioner<T> {
     super.configure(config);
     addMappedNames((List<String>)config.getOrDefault(
             PartitionerConfig.SCHEMA_MAPPING_CONFIG, PartitionerConfig.SCHEMA_MAPPING_DEFAULT));
-    ignoreTopic = (Boolean)config.getOrDefault(
-            PartitionerConfig.IGNORE_TOPIC_CONFIG, PartitionerConfig.IGNORE_TOPIC_DEFAULT);
+    ignoreTopic = Boolean.valueOf((String)config.getOrDefault(
+            PartitionerConfig.IGNORE_TOPIC_CONFIG, PartitionerConfig.IGNORE_TOPIC_DEFAULT));
   }
 
   private void addMappedNames(List<String> mappings) {
