@@ -235,8 +235,17 @@ public class PartitionerConfig extends AbstractConfig implements ComposableConfi
               group,
               ++orderInGroup,
               Width.SHORT,
-              IGNORE_TOPIC_DOC);
+              IGNORE_TOPIC_DISPLAY);
 
+      configDef.define(SCHEMA_MAPPING_CONFIG,
+              Type.LIST,
+              SCHEMA_MAPPING_DEFAULT,
+              Importance.LOW,
+              SCHEMA_MAPPING_DOC,
+              group,
+              ++orderInGroup,
+              Width.LONG,
+              SCHEMA_MAPPING_DISPLAY);
     }
 
     return configDef;
