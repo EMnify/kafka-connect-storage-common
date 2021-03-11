@@ -20,6 +20,7 @@ import org.apache.kafka.connect.data.Schema;
 import org.apache.kafka.connect.sink.SinkRecord;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
@@ -28,16 +29,32 @@ public class TimeSchemaBasedPartitioner<T> extends TimeBasedPartitioner<T> {
   private static final Pattern SCHEMA_NAME = Pattern.compile("__SCHEMA_NAME__");
 
   private final Map<String, String> mappedNames = new HashMap<String, String>();
+  private boolean ignoreTopic = false;
 
   @Override
   public void configure(Map<String, Object> config) {
     super.configure(config);
-    String mappings = (String)config.getOrDefault(PartitionerConfig.SCHEMA_MAPPING_CONFIG, "");
-    for (String p : mappings.split(",")) {
+    addMappedNames((List<String>)config.getOrDefault(
+            PartitionerConfig.SCHEMA_MAPPING_CONFIG, PartitionerConfig.SCHEMA_MAPPING_DEFAULT));
+    ignoreTopic = (Boolean)config.getOrDefault(
+            PartitionerConfig.IGNORE_TOPIC_CONFIG, PartitionerConfig.IGNORE_TOPIC_DEFAULT);
+  }
+
+  private void addMappedNames(List<String> mappings) {
+    for (String p : mappings) {
       String[] pair = p.split(":");
       if (pair.length == 2) {
         mappedNames.put(pair[0], pair[1]);
       }
+    }
+  }
+
+  @Override
+  public String generatePartitionedPath(String topic, String encodedPartition) {
+    if (ignoreTopic) {
+      return encodedPartition;
+    } else {
+      return super.generatePartitionedPath(topic, encodedPartition);
     }
   }
 

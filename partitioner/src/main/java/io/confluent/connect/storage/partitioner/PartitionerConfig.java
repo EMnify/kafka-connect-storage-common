@@ -110,6 +110,13 @@ public class PartitionerConfig extends AbstractConfig implements ComposableConfi
   public static final String SCHEMA_MAPPING_DEFAULT = "";
   public static final String SCHEMA_MAPPING_DISPLAY = "Schema name mapping";
 
+  public static final String IGNORE_TOPIC_CONFIG = "path.ignore.topic";
+  public static final String IGNORE_TOPIC_DOC =
+          "If set to true topic name will not be part of the path. This is implemented only for "
+          + "TimeSchemaBasedPartitioner that uses schema name rather than topic.";
+  public static final String IGNORE_TOPIC_DEFAULT = "true";
+  public static final String IGNORE_TOPIC_DISPLAY = "Ignore topic for path";
+
 
   /**
    * Create a new configuration definition.
@@ -221,7 +228,7 @@ public class PartitionerConfig extends AbstractConfig implements ComposableConfi
           TIMESTAMP_FIELD_NAME_DISPLAY);
 
       configDef.define(SCHEMA_MAPPING_CONFIG,
-              Type.STRING,
+              Type.LIST,
               SCHEMA_MAPPING_DEFAULT,
               Importance.LOW,
               SCHEMA_MAPPING_DOC,
